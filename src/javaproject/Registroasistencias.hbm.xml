@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2023, 7:40:20 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="javaproject.Registroasistencias" table="registroasistencias" schema="public" optimistic-lock="version">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="asignaturas" class="javaproject.Asignaturas" fetch="select">
+            <column name="asignatura_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estudiantes" class="javaproject.Estudiantes" fetch="select">
+            <column name="estudiante_id" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

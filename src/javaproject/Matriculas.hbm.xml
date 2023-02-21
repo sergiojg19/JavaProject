@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2023, 7:40:20 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="javaproject.Matriculas" table="matriculas" schema="public" optimistic-lock="version">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="fechaInicio" type="date">
+            <column name="fechaInicio" length="13" not-null="true" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="fechaFin" length="13" not-null="true" />
+        </property>
+        <property name="precio" type="big_decimal">
+            <column name="precio" precision="6" not-null="true" />
+        </property>
+        <set name="cicloses" table="ciclos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="matricula_id" not-null="true" />
+            </key>
+            <one-to-many class="javaproject.Ciclos" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2023, 7:40:20 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="javaproject.Carreras" table="carreras" schema="public" optimistic-lock="version">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="facultades" class="javaproject.Facultades" fetch="select">
+            <column name="facultad_id" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="300" not-null="true" />
+        </property>
+        <set name="cicloses" table="ciclos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="carrera_id" not-null="true" />
+            </key>
+            <one-to-many class="javaproject.Ciclos" />
+        </set>
+    </class>
+</hibernate-mapping>

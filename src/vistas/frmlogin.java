@@ -46,7 +46,6 @@ public class frmlogin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Iniciar sesión");
 
-        txtusername.setText("sergio");
         txtusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtusernameActionPerformed(evt);
@@ -56,7 +55,6 @@ public class frmlogin extends javax.swing.JFrame {
         btnIniciaSesion.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         btnIniciaSesion.setText("Ingresar");
 
-        txtpassword.setText("Jasser19");
         txtpassword.setToolTipText("");
 
         loadingBar.setStringPainted(true);

@@ -119,7 +119,7 @@ public class ctrlsystem implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla.", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
             }else{
                 long registroAsistenciaId = Long.valueOf(modelo.getValueAt(row, column).toString());
-                Registroasistencias registroasistencias = ctrlconsulta.obtenerRegistroAsistencia(registroAsistenciaId);
+                Registroasistencias registroasistencias = ctrlconsulta.obtenerRegistroAsistenciaSinFinalizarConexion(registroAsistenciaId);
                 ctrlregistroasistencia ctrlregAsistencia = new ctrlregistroasistencia(this);
                 ctrlregAsistencia.inicio();
                 ctrlregAsistencia.patchValue(registroasistencias);

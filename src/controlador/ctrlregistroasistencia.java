@@ -28,6 +28,7 @@ public class ctrlregistroasistencia implements ActionListener {
     ctrlconsultas ctrlconsulta = new ctrlconsultas();
     Date date;
     String estudiante, asignatura;
+    Registroasistencias registroasistenciasModelo = null;
     public ctrlregistroasistencia(ctrlsystem ctrlSystem) {
         this.ctrlsystem = ctrlSystem;
         this.frmregAsistencia.btncancelar.addActionListener(this);
@@ -41,7 +42,11 @@ public class ctrlregistroasistencia implements ActionListener {
         frmregAsistencia.setLocationRelativeTo(null);
     }
     public void patchValue(Registroasistencias registroasistencias){
-        
+        registroasistenciasModelo = registroasistencias;
+        frmregAsistencia.txtfecha.setText(registroasistencias.getFecha().toString());
+        frmregAsistencia.jcbestudiante.setSelectedItem(registroasistencias.getEstudiantes().getNombre());
+        frmregAsistencia.jcbasignatura.setSelectedItem(registroasistencias.getAsignaturas().getNombre());
+        ctrlconsulta.finalizarConexion();
     }
     public void cargarEstudiantes(){
         frmregAsistencia.jcbestudiante.removeAll();
@@ -90,16 +95,28 @@ public class ctrlregistroasistencia implements ActionListener {
                     Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
                     Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
                     Registroasistencias registroasistencias = new Registroasistencias();
-                    //registroasistencias.setId(23);
+                    if(this.registroasistenciasModelo !=null){
+                        long id = this.registroasistenciasModelo.getId();
+                        registroasistencias.setId(id); // asignar el id del modelo porque va a editr
+                    }else{
+                        long id = ctrlconsulta.obtenerSiguienteIndexRegistroAsistencia();
+                        registroasistencias.setId(id); // id para siguiente registro
+                    }
                     registroasistencias.setFecha(this.date);
                     registroasistencias.setEstudiantes(estudiante);
                     registroasistencias.setAsignaturas(asignatura);
                     //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
     //                Registroasistencias regAsistencia = new Registroasistencias(0,null, null, new Date());
     //                ctrlsystem.listRegistroAsist.add(regAsistencia);
-                    ctrlconsulta.guardarRegistroAsistencia(registroasistencias);
-                    this.ctrlsystem.llenartabla();
-                    JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
+                     if(this.registroasistenciasModelo !=null){
+                         ctrlconsulta.editarRegistroAsistencia(registroasistencias); 
+                         this.ctrlsystem.llenartabla();
+                        JOptionPane.showMessageDialog(null, "Asistencia actualizada correctamente");
+                     }else{
+                         ctrlconsulta.guardarRegistroAsistencia(registroasistencias); 
+                         this.ctrlsystem.llenartabla();
+                        JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
+                     }
                     frmregAsistencia.dispose();
                 }else{
                  JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.Iterator;
 import java.util.List;
 import javaproject.Asignaturas;
 import javaproject.Estudiantes;
@@ -63,6 +64,13 @@ public class ctrlconsultas {
         finalizarConexion();
         return registroasistencias;
     }
+    public Registroasistencias obtenerRegistroAsistenciaSinFinalizarConexion(long registroAsistenciaId){
+        Registroasistencias registroasistencias=null;
+        iniciarConexion();
+        registroasistencias = (Registroasistencias) session.get(Registroasistencias.class, registroAsistenciaId);
+//        finalizarConexion();
+        return registroasistencias;
+    }
     public List<Registroasistencias> obtenerListadoRegistroAsistenciasSegunEstudianteId(long estudianteId){
         List<Registroasistencias> listaRegistroAsistencias = null;
         iniciarConexion();
@@ -70,6 +78,15 @@ public class ctrlconsultas {
         Query query = session.createQuery(hql);
         listaRegistroAsistencias = query.list();
 //        finalizarConexion();
+        return listaRegistroAsistencias;
+    }
+    public List<Registroasistencias> obtenerListadoRegistroAsistencias(){
+        List<Registroasistencias> listaRegistroAsistencias = null;
+        iniciarConexion();
+        String hql = "FROM Registroasistencias ORDER BY id ASC";
+        Query query = session.createQuery(hql);
+        listaRegistroAsistencias = query.list();
+        finalizarConexion();
         return listaRegistroAsistencias;
     }
     public List<Asignaturas> obtenerListadoAsignaturas(){
@@ -127,5 +144,14 @@ public class ctrlconsultas {
         listaAsignaturas = query.list();
         return listaAsignaturas.get(0);
     }
-
+   public long obtenerSiguienteIndexRegistroAsistencia(){
+       List listado = obtenerListadoRegistroAsistencias();
+       Iterator it = listado.iterator();
+       long index = 0;
+        while(it.hasNext()){
+            Registroasistencias registroasistencias = (Registroasistencias) it.next();
+            index = registroasistencias.getId();
+        }
+        return index+1;
+   }
 }

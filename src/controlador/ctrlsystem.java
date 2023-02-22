@@ -104,7 +104,7 @@ public class ctrlsystem implements ActionListener {
 
         if (frmsystem.btnregistrar == e.getSource()) {
             ctrlregistroasistencia ctrlregAsistencia = new ctrlregistroasistencia(this);
-            ctrlregAsistencia.inicio();
+            ctrlregAsistencia.inicio(this.estudiante);
         }
         if (frmsystem.btnActualizar == e.getSource()) {
             if(llenartabla()!=null){
@@ -121,11 +121,9 @@ public class ctrlsystem implements ActionListener {
                 long registroAsistenciaId = Long.valueOf(modelo.getValueAt(row, column).toString());
                 Registroasistencias registroasistencias = ctrlconsulta.obtenerRegistroAsistenciaSinFinalizarConexion(registroAsistenciaId);
                 ctrlregistroasistencia ctrlregAsistencia = new ctrlregistroasistencia(this);
-                ctrlregAsistencia.inicio();
+                ctrlregAsistencia.inicio(this.estudiante);
                 ctrlregAsistencia.patchValue(registroasistencias);
-                
             }
-            
         }
         if (frmsystem.btnEliminar == e.getSource()) {
             llenartabla();

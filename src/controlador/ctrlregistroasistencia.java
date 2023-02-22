@@ -27,7 +27,7 @@ public class ctrlregistroasistencia implements ActionListener {
     ctrlsystem ctrlsystem;
     ctrlconsultas ctrlconsulta = new ctrlconsultas();
     Date date;
-    String estudiante, asignatura;
+    String strEstudiante, strAsignatura;
     Registroasistencias registroasistenciasModelo = null;
     public ctrlregistroasistencia(ctrlsystem ctrlSystem) {
         this.ctrlsystem = ctrlSystem;
@@ -35,13 +35,16 @@ public class ctrlregistroasistencia implements ActionListener {
         this.frmregAsistencia.btnguardar.addActionListener(this);
     }
     
-    public void inicio() {
+    public void inicio(Estudiantes estudiante) {
         cargarEstudiantes();
         cargarAsignaturas();
         frmregAsistencia.setVisible(true);
         frmregAsistencia.setLocationRelativeTo(null);
+        frmregAsistencia.jcbestudiante.setSelectedItem(estudiante.getNombre());
+        frmregAsistencia.lblTitulo.setText("Registrar nueva asistencia");
     }
     public void patchValue(Registroasistencias registroasistencias){
+        frmregAsistencia.lblTitulo.setText("Actualizar asistencia");
         registroasistenciasModelo = registroasistencias;
         frmregAsistencia.txtfecha.setText(registroasistencias.getFecha().toString());
         frmregAsistencia.jcbestudiante.setSelectedItem(registroasistencias.getEstudiantes().getNombre());
@@ -76,9 +79,9 @@ public class ctrlregistroasistencia implements ActionListener {
          try {
                 String fecha = frmregAsistencia.txtfecha.getText();
                 this.date =  new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
-                this.estudiante = frmregAsistencia.jcbestudiante.getSelectedItem().toString();
-                this.asignatura = frmregAsistencia.jcbasignatura.getSelectedItem().toString();
-                if(estudiante.equals("Seleccionar estudiante...") || asignatura.equals("Seleccionar asignatura...")){
+                this.strEstudiante = frmregAsistencia.jcbestudiante.getSelectedItem().toString();
+                this.strAsignatura = frmregAsistencia.jcbasignatura.getSelectedItem().toString();
+                if(strEstudiante.equals("Seleccionar estudiante...") || strAsignatura.equals("Seleccionar asignatura...")){
                     return false;
                 }
                 return true;
@@ -92,8 +95,8 @@ public class ctrlregistroasistencia implements ActionListener {
         try {
              if (frmregAsistencia.btnguardar == e.getSource()) {
                 if(validarCampos()){
-                    Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
-                    Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
+                    Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.strEstudiante);
+                    Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.strAsignatura);
                     Registroasistencias registroasistencias = new Registroasistencias();
                     if(this.registroasistenciasModelo !=null){
                         long id = this.registroasistenciasModelo.getId();
@@ -105,9 +108,7 @@ public class ctrlregistroasistencia implements ActionListener {
                     registroasistencias.setFecha(this.date);
                     registroasistencias.setEstudiantes(estudiante);
                     registroasistencias.setAsignaturas(asignatura);
-                    //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
-    //                Registroasistencias regAsistencia = new Registroasistencias(0,null, null, new Date());
-    //                ctrlsystem.listRegistroAsist.add(regAsistencia);
+                    
                      if(this.registroasistenciasModelo !=null){
                          ctrlconsulta.editarRegistroAsistencia(registroasistencias); 
                          this.ctrlsystem.llenartabla();

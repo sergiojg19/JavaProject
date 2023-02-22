@@ -44,12 +44,15 @@ public class ctrlregistroasistencia implements ActionListener {
         frmregAsistencia.lblTitulo.setText("Registrar nueva asistencia");
     }
     public void patchValue(Registroasistencias registroasistencias){
-        frmregAsistencia.lblTitulo.setText("Actualizar asistencia");
-        registroasistenciasModelo = registroasistencias;
-        frmregAsistencia.txtfecha.setText(registroasistencias.getFecha().toString());
-        frmregAsistencia.jcbestudiante.setSelectedItem(registroasistencias.getEstudiantes().getNombre());
-        frmregAsistencia.jcbasignatura.setSelectedItem(registroasistencias.getAsignaturas().getNombre());
-        ctrlconsulta.finalizarConexion();
+        try {
+            frmregAsistencia.lblTitulo.setText("Actualizar asistencia");
+            registroasistenciasModelo = registroasistencias;
+            frmregAsistencia.txtfecha.setText(registroasistencias.getFecha().toString());
+            frmregAsistencia.jcbestudiante.setSelectedItem(registroasistencias.getEstudiantes().getNombre());
+            frmregAsistencia.jcbasignatura.setSelectedItem(registroasistencias.getAsignaturas().getNombre());
+            ctrlconsulta.finalizarConexion();
+        } catch (Exception e) {
+        }
     }
     public void cargarEstudiantes(){
         frmregAsistencia.jcbestudiante.removeAll();
@@ -131,13 +134,6 @@ public class ctrlregistroasistencia implements ActionListener {
         }
        
 
-        //ctrladministracion.inventario.add(inventario);
-        //DefaultTableModel modelo =(DefaultTableModel)this.frmsystem.tbldatos.getModel();
-//       this.ctrlsystem.inventario.add(inventario);
-        //modelo.addRow(new Object[]{nombre});
-        // Inventario inventario = new Inventario(nombre, compra,serie, venta,cantidad);
-        //DefaultTableModel modelo =(DefaultTableModel)this.frmsystem.tbldatos.getModel();
-        // modelo.addRow(new Object[]{nombre});
     }
 
 }

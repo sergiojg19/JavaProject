@@ -126,7 +126,22 @@ public class ctrlsystem implements ActionListener {
             }
         }
         if (frmsystem.btnEliminar == e.getSource()) {
-            llenartabla();
+            DefaultTableModel modelo = (DefaultTableModel) this.frmsystem.tbldatos.getModel();
+            int column = 0;
+            int row = this.frmsystem.tbldatos.getSelectedRow();
+            if(row == -1){
+                JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla.", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            }else{
+                long registroAsistenciaId = Long.valueOf(modelo.getValueAt(row, column).toString());
+                Registroasistencias registroasistencia = ctrlconsulta.obtenerRegistroAsistencia(registroAsistenciaId);
+                int resp=JOptionPane.showConfirmDialog(null,"¿Está seguro de eliminar el registro seleccionado?");
+                if (JOptionPane.OK_OPTION == resp){
+                   ctrlconsulta.eliminarRegistroAsistencia(registroasistencia);
+                   llenartabla();
+                } else{
+                    System.out.println("No selecciona una opción afirmativa");
+                }
+            }
         }
 //        if (frmsystem.btnventa == e.getSource()) {
 //            ctrlregistrarventa ctrlventa = new ctrlregistrarventa(this, this.listRegistroAsist);

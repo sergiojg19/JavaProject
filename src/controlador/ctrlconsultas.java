@@ -63,10 +63,10 @@ public class ctrlconsultas {
         finalizarConexion();
         return registroasistencias;
     }
-    public List<Registroasistencias> obtenerListadoRegistroAsistencias(){
+    public List<Registroasistencias> obtenerListadoRegistroAsistenciasSegunEstudianteId(long estudianteId){
         List<Registroasistencias> listaRegistroAsistencias = null;
         iniciarConexion();
-        String hql = "FROM Registroasistencias ORDER BY id ASC";
+        String hql = "SELECT regas FROM Registroasistencias regas WHERE regas.estudiantes.id = "+estudianteId+" ORDER BY id ASC";
         Query query = session.createQuery(hql);
         listaRegistroAsistencias = query.list();
 //        finalizarConexion();

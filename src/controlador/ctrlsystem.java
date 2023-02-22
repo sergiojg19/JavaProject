@@ -14,6 +14,7 @@ import javaproject.Registroasistencias;
 import javaproject.Usuarios;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
+import vistas.frmlogin;
 import vistas.frmsystem;
 
 public class ctrlsystem implements ActionListener {
@@ -24,6 +25,7 @@ public class ctrlsystem implements ActionListener {
     Estudiantes estudiante = null;
     ctrlconsultas ctrlconsulta = new ctrlconsultas();
       // modelo.addRow(new Object[]{nombre});
+    frmlogin frmlogin = new frmlogin();
     public ctrlsystem(Estudiantes estudiante) {
         setEstudiante(estudiante);
         frmsystem.btnregistrar.addActionListener(this);
@@ -51,7 +53,7 @@ public class ctrlsystem implements ActionListener {
             DefaultTableModel modelo = (DefaultTableModel) this.frmsystem.tbldatos.getModel();
             modelo.setRowCount(0);
             ctrlconsultas consultas = new ctrlconsultas();
-            List listado = consultas.obtenerListadoRegistroAsistencias();
+            List listado = consultas.obtenerListadoRegistroAsistenciasSegunEstudianteId(this.estudiante.getId());
             Iterator it = listado.iterator();
             while(it.hasNext()){
                 Registroasistencias regAsistencia = (Registroasistencias) it.next();
@@ -109,7 +111,9 @@ public class ctrlsystem implements ActionListener {
 //            ctrlventa.inicio();
 //        }
         if (frmsystem.btnsalir == e.getSource()) {
-            System.exit(0);
+            frmsystem.dispose();
+            frmlogin.setVisible(true);
+            frmlogin.setLocationRelativeTo(null);
         }
     }
 }

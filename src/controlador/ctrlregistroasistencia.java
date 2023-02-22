@@ -75,7 +75,7 @@ public class ctrlregistroasistencia implements ActionListener {
                 }
                 return true;
          } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Ajustar yyyy-MM-dd");
+             JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Ajustar yyyy-MM-dd", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
          }
        return false;
      }
@@ -86,7 +86,7 @@ public class ctrlregistroasistencia implements ActionListener {
                 Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
                 Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
                 Registroasistencias registroasistencias = new Registroasistencias();
-                registroasistencias.setId(23);
+                //registroasistencias.setId(23);
                 registroasistencias.setFecha(this.date);
                 registroasistencias.setEstudiantes(estudiante);
                 registroasistencias.setAsignaturas(asignatura);
@@ -98,7 +98,7 @@ public class ctrlregistroasistencia implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
                 frmregAsistencia.dispose();
             }else{
-                JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir");
+             JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
             }
         }
         if (frmregAsistencia.btncancelar == e.getSource()) {

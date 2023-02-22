@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import javaproject.Estudiantes;
 import javaproject.Usuarios;
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import vistas.frmlogin;
 import utils.Hasher;
@@ -32,7 +33,11 @@ public class ctrllogin implements ActionListener {
         frmlogin.setLocationRelativeTo(null);
     }
     private boolean validarCampos(){
-        
+        String username = frmlogin.txtusername.getText();
+        String password = new String(frmlogin.txtpassword.getPassword());
+        if(username.isEmpty() || password.isEmpty()){
+            return false;
+        }
         return true;
     }
     private Usuarios autenticarUsuario(){
@@ -90,11 +95,6 @@ public class ctrllogin implements ActionListener {
     }
     
     
-    
-    
-    
-    
-    
      @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -105,8 +105,10 @@ public class ctrllogin implements ActionListener {
                     ctrlsystem ctrlsystem = new ctrlsystem(getEstudianteSegunUsuario(usuario));
                     frmlogin.dispose();
                 }else{
-                    System.out.println("Login Incorrecto");
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                 }
+            }else{
+             JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
             }
         }
         

@@ -76,7 +76,7 @@ public class frmsystem extends javax.swing.JFrame {
             }
         });
 
-        btnsalir.setText("Salir");
+        btnsalir.setText("Cerrar sesión");
 
         lblEstudiant.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
 

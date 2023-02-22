@@ -34,7 +34,7 @@ public class ctrlconsultas {
         }
     }
     
-    public long guardarRegistroAsistencia(Registroasistencias registroasistencias){
+    public long guardarRegistroAsistencia(Registroasistencias registroasistencias) throws Exception{
             long id=0;
         try {
             iniciarConexion();
@@ -43,8 +43,8 @@ public class ctrlconsultas {
             return id;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al registrar asistencia. Error: "+e.getMessage(), "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+            throw new Exception(e.getMessage());
         }
-        return id;
     }
     public void editarRegistroAsistencia(Registroasistencias registroasistencias){
         iniciarConexion();

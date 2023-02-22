@@ -12,6 +12,7 @@ import java.util.List;
 import javaproject.Estudiantes;
 import javaproject.Registroasistencias;
 import javaproject.Usuarios;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import vistas.frmlogin;
@@ -25,10 +26,13 @@ public class ctrlsystem implements ActionListener {
     Estudiantes estudiante = null;
     ctrlconsultas ctrlconsulta = new ctrlconsultas();
       // modelo.addRow(new Object[]{nombre});
-    frmlogin frmlogin = new frmlogin();
+//    frmlogin frmlogin = new frmlogin();
     public ctrlsystem(Estudiantes estudiante) {
         setEstudiante(estudiante);
         frmsystem.btnregistrar.addActionListener(this);
+        frmsystem.btnActualizar.addActionListener(this);
+        frmsystem.btnEditar.addActionListener(this);
+        frmsystem.btnEliminar.addActionListener(this);
         frmsystem.btnsalir.addActionListener(this);
         cargarInformacionPersonal();
         cargarDatosTabla();
@@ -102,18 +106,40 @@ public class ctrlsystem implements ActionListener {
             ctrlregistroasistencia ctrlregAsistencia = new ctrlregistroasistencia(this);
             ctrlregAsistencia.inicio();
         }
-//        if (frmsystem.btncomprar == e.getSource()) {
-//            ctrlregistrarcompra ctrlcompra = new ctrlregistrarcompra(this, this.listRegistroAsist);
-//            ctrlcompra.inicio();
-//        }
+        if (frmsystem.btnActualizar == e.getSource()) {
+            if(llenartabla()!=null){
+                JOptionPane.showMessageDialog(null, "Tabla actualizada correctamente");
+            }
+        }
+        if (frmsystem.btnEditar == e.getSource()) {
+            DefaultTableModel modelo = (DefaultTableModel) this.frmsystem.tbldatos.getModel();
+            int column = 0;
+            int row = this.frmsystem.tbldatos.getSelectedRow();
+            if(row == -1){
+                JOptionPane.showMessageDialog(null, "Seleccione un registro en la tabla.", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            }else{
+                long registroAsistenciaId = Long.valueOf(modelo.getValueAt(row, column).toString());
+                Registroasistencias registroasistencias = ctrlconsulta.obtenerRegistroAsistencia(registroAsistenciaId);
+                ctrlregistroasistencia ctrlregAsistencia = new ctrlregistroasistencia(this);
+                ctrlregAsistencia.inicio();
+                ctrlregAsistencia.patchValue(registroasistencias);
+                
+            }
+            
+        }
+        if (frmsystem.btnEliminar == e.getSource()) {
+            llenartabla();
+        }
 //        if (frmsystem.btnventa == e.getSource()) {
 //            ctrlregistrarventa ctrlventa = new ctrlregistrarventa(this, this.listRegistroAsist);
 //            ctrlventa.inicio();
 //        }
         if (frmsystem.btnsalir == e.getSource()) {
             frmsystem.dispose();
-            frmlogin.setVisible(true);
-            frmlogin.setLocationRelativeTo(null);
+            ctrllogin ctrlogin = new ctrllogin();
         }
+//            if (frmsystem.btnsalir == e.getSource()) {
+//            System.exit(0);
+//        }
     }
 }

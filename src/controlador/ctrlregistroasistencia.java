@@ -40,6 +40,9 @@ public class ctrlregistroasistencia implements ActionListener {
         frmregAsistencia.setVisible(true);
         frmregAsistencia.setLocationRelativeTo(null);
     }
+    public void patchValue(Registroasistencias registroasistencias){
+        
+    }
     public void cargarEstudiantes(){
         frmregAsistencia.jcbestudiante.removeAll();
         frmregAsistencia.jcbestudiante.addItem("Seleccionar estudiante...");
@@ -81,30 +84,34 @@ public class ctrlregistroasistencia implements ActionListener {
      }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (frmregAsistencia.btnguardar == e.getSource()) {
-            if(validarCampos()){
-                Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
-                Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
-                Registroasistencias registroasistencias = new Registroasistencias();
-                //registroasistencias.setId(23);
-                registroasistencias.setFecha(this.date);
-                registroasistencias.setEstudiantes(estudiante);
-                registroasistencias.setAsignaturas(asignatura);
-                //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
-//                Registroasistencias regAsistencia = new Registroasistencias(0,null, null, new Date());
-//                ctrlsystem.listRegistroAsist.add(regAsistencia);
-                ctrlconsulta.guardarRegistroAsistencia(registroasistencias);
-                this.ctrlsystem.llenartabla();
-                JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
-                frmregAsistencia.dispose();
-            }else{
-             JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+        try {
+             if (frmregAsistencia.btnguardar == e.getSource()) {
+                if(validarCampos()){
+                    Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
+                    Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
+                    Registroasistencias registroasistencias = new Registroasistencias();
+                    //registroasistencias.setId(23);
+                    registroasistencias.setFecha(this.date);
+                    registroasistencias.setEstudiantes(estudiante);
+                    registroasistencias.setAsignaturas(asignatura);
+                    //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
+    //                Registroasistencias regAsistencia = new Registroasistencias(0,null, null, new Date());
+    //                ctrlsystem.listRegistroAsist.add(regAsistencia);
+                    ctrlconsulta.guardarRegistroAsistencia(registroasistencias);
+                    this.ctrlsystem.llenartabla();
+                    JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
+                    frmregAsistencia.dispose();
+                }else{
+                 JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+                }
             }
+            if (frmregAsistencia.btncancelar == e.getSource()) {
+                frmregAsistencia.dispose();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
         }
-        if (frmregAsistencia.btncancelar == e.getSource()) {
-            frmregAsistencia.dispose();
-
-        }
+       
 
         //ctrladministracion.inventario.add(inventario);
         //DefaultTableModel modelo =(DefaultTableModel)this.frmsystem.tbldatos.getModel();

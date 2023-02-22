@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 20, 2023, 7:40:20 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Feb 21, 2023, 7:16:14 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="javaproject.Asignaturas" table="asignaturas" schema="public" optimistic-lock="version">
         <id name="id" type="long">
@@ -17,6 +17,12 @@
         <property name="nombre" type="string">
             <column name="nombre" length="300" not-null="true" />
         </property>
+        <set name="estudiantesAsignaturas" table="estudiantes_asignatura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="asignatura_id" not-null="true" />
+            </key>
+            <one-to-many class="javaproject.EstudiantesAsignatura" />
+        </set>
         <set name="registroasistenciases" table="registroasistencias" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="asignatura_id" not-null="true" />

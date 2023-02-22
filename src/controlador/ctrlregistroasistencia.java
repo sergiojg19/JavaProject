@@ -6,6 +6,8 @@ package controlador;
 import java.util.Date;  
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import javaproject.Asignaturas;
@@ -23,7 +25,9 @@ import vistas.frmregistrarasistencia;
 public class ctrlregistroasistencia implements ActionListener {
     frmregistrarasistencia frmregAsistencia = new frmregistrarasistencia();
     ctrlsystem ctrlsystem;
-    
+    ctrlconsultas ctrlconsulta = new ctrlconsultas();
+    Date date;
+    String estudiante, asignatura;
     public ctrlregistroasistencia(ctrlsystem ctrlSystem) {
         this.ctrlsystem = ctrlSystem;
         this.frmregAsistencia.btncancelar.addActionListener(this);
@@ -33,7 +37,8 @@ public class ctrlregistroasistencia implements ActionListener {
     public void inicio() {
         cargarEstudiantes();
         cargarAsignaturas();
-        frmregAsistencia.show();
+        frmregAsistencia.setVisible(true);
+        frmregAsistencia.setLocationRelativeTo(null);
     }
     public void cargarEstudiantes(){
         frmregAsistencia.jcbestudiante.removeAll();
@@ -59,18 +64,42 @@ public class ctrlregistroasistencia implements ActionListener {
                 frmregAsistencia.jcbasignatura.addItem(asignatura.getNombre());
             }
     }
+     private boolean validarCampos(){
+         try {
+                String fecha = frmregAsistencia.txtfecha.getText();
+                this.date =  new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+                this.estudiante = frmregAsistencia.jcbestudiante.getSelectedItem().toString();
+                this.asignatura = frmregAsistencia.jcbasignatura.getSelectedItem().toString();
+                if(estudiante.equals("Seleccionar estudiante...") || asignatura.equals("Seleccionar asignatura...")){
+                    return false;
+                }
+                return true;
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Ajustar yyyy-MM-dd");
+         }
+       return false;
+     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (frmregAsistencia.btnguardar == e.getSource()) {
-            String fecha = frmregAsistencia.txtfecha.getText();
-            Estudiantes estudiante =(Estudiantes) frmregAsistencia.jcbestudiante.getSelectedItem();
-            
-            //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
-            Registroasistencias regAsistencia = new Registroasistencias(1,null, null, new Date());
-            ctrlsystem.listRegistroAsist.add(regAsistencia);
-            this.ctrlsystem.llenartabla();
-            JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
-            frmregAsistencia.dispose();
+            if(validarCampos()){
+                Estudiantes estudiante =(Estudiantes) ctrlconsulta.obtenerEstudianteSegunNombre(this.estudiante);
+                Asignaturas asignatura =(Asignaturas) ctrlconsulta.obtenerAsingaturaSegunNombre(this.asignatura);
+                Registroasistencias registroasistencias = new Registroasistencias();
+                registroasistencias.setId(23);
+                registroasistencias.setFecha(this.date);
+                registroasistencias.setEstudiantes(estudiante);
+                registroasistencias.setAsignaturas(asignatura);
+                //Registroasistencias regAsistencia = new Registroasistencias(this.contadorInventario,nombre, stock,0,0);
+//                Registroasistencias regAsistencia = new Registroasistencias(0,null, null, new Date());
+//                ctrlsystem.listRegistroAsist.add(regAsistencia);
+                ctrlconsulta.guardarRegistroAsistencia(registroasistencias);
+                this.ctrlsystem.llenartabla();
+                JOptionPane.showMessageDialog(null, "Asistencia registrada correctamente");
+                frmregAsistencia.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Existen campos por completar o corregir");
+            }
         }
         if (frmregAsistencia.btncancelar == e.getSource()) {
             frmregAsistencia.dispose();

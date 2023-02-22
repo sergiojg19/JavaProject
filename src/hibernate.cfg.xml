@@ -52,6 +52,7 @@ Contributor(s):
     <mapping resource="javaproject/Estudiantes.hbm.xml"/>
     <mapping resource="javaproject/Usuarios.hbm.xml"/>
     <mapping resource="javaproject/Registroasistencias.hbm.xml"/>
+    <mapping resource="javaproject/EstudiantesAsignatura.hbm.xml"/>
     <mapping resource="javaproject/Carreras.hbm.xml"/>
     <mapping resource="javaproject/Ciclos.hbm.xml"/>
     <mapping resource="javaproject/Asignaturas.hbm.xml"/>

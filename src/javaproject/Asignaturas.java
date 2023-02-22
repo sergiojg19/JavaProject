@@ -1,5 +1,5 @@
 package javaproject;
-// Generated Feb 20, 2023, 7:40:20 PM by Hibernate Tools 4.3.1
+// Generated Feb 21, 2023, 7:16:14 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class Asignaturas  implements java.io.Serializable {
      private Ciclos ciclos;
      private Docentes docentes;
      private String nombre;
+     private Set estudiantesAsignaturas = new HashSet(0);
      private Set registroasistenciases = new HashSet(0);
 
     public Asignaturas() {
@@ -27,11 +28,12 @@ public class Asignaturas  implements java.io.Serializable {
         this.docentes = docentes;
         this.nombre = nombre;
     }
-    public Asignaturas(long id, Ciclos ciclos, Docentes docentes, String nombre, Set registroasistenciases) {
+    public Asignaturas(long id, Ciclos ciclos, Docentes docentes, String nombre, Set estudiantesAsignaturas, Set registroasistenciases) {
        this.id = id;
        this.ciclos = ciclos;
        this.docentes = docentes;
        this.nombre = nombre;
+       this.estudiantesAsignaturas = estudiantesAsignaturas;
        this.registroasistenciases = registroasistenciases;
     }
    
@@ -62,6 +64,13 @@ public class Asignaturas  implements java.io.Serializable {
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public Set getEstudiantesAsignaturas() {
+        return this.estudiantesAsignaturas;
+    }
+    
+    public void setEstudiantesAsignaturas(Set estudiantesAsignaturas) {
+        this.estudiantesAsignaturas = estudiantesAsignaturas;
     }
     public Set getRegistroasistenciases() {
         return this.registroasistenciases;

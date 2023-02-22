@@ -80,8 +80,8 @@ public class ctrlsystem implements ActionListener {
     }
     public void cargarInformacionPersonal(){
         Estudiantes estudiante = ctrlconsulta.obtenerEstudiante(this.estudiante.getId());
-        frmsystem.lblEstudiant.setText("Información del estudiante "+estudiante.getNombre());
-//        frmsystem.lblTitulo.setText(estudiante.getRegistroasistenciases());
+        frmsystem.lblEstudiant.setText("Reporte de asistencias del estudiante "+estudiante.getNombre());
+        //frmsystem.lblTitulo.setText(estudiante.getRegistroasistenciases());
 //        frmsystem.lblEstudiant.setText("Información del estudiante "+estudiante.getNombre());
     }
     public void actualizarinventario(List<Registroasistencias> regAsitencia) {

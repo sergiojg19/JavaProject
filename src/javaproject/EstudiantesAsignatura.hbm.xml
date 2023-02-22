@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Feb 21, 2023, 7:16:14 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="javaproject.Registroasistencias" table="registroasistencias" schema="public" optimistic-lock="version">
+    <class name="javaproject.EstudiantesAsignatura" table="estudiantes_asignatura" schema="public" optimistic-lock="version">
         <id name="id" type="long">
             <column name="id" />
             <generator class="assigned" />
@@ -14,8 +14,5 @@
         <many-to-one name="estudiantes" class="javaproject.Estudiantes" fetch="select">
             <column name="estudiante_id" not-null="true" />
         </many-to-one>
-        <property name="fecha" type="date">
-            <column name="fecha" length="13" not-null="true" />
-        </property>
     </class>
 </hibernate-mapping>

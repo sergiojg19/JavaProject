@@ -7,6 +7,7 @@ package vistas;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import utils.TextPrompt;
 
 /**
  *
@@ -19,6 +20,8 @@ public class frmregistrarasistencia extends javax.swing.JFrame {
      */
     public frmregistrarasistencia() {
         initComponents();
+        TextPrompt placeholder = new TextPrompt("año-mes-dia", txtfecha);
+        placeholder.changeAlpha(0.65f);
 //        UtilDateModel model = new UtilDateModel();
 //        JDatePanelImpl datePanel = new JDatePanelImpl(model);
 //        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);

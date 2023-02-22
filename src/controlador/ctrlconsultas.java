@@ -10,6 +10,7 @@ import javaproject.Asignaturas;
 import javaproject.Estudiantes;
 import javaproject.Registroasistencias;
 import javaproject.Usuarios;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,11 +34,16 @@ public class ctrlconsultas {
         }
     }
     
-    public int guardarRegistroAsistencia(Registroasistencias registroasistencias){
-        int id=0;
-        iniciarConexion();
-        id = (int)session.save(registroasistencias);
-        finalizarConexion();
+    public long guardarRegistroAsistencia(Registroasistencias registroasistencias){
+            long id=0;
+        try {
+            iniciarConexion();
+            id = (long)session.save(registroasistencias);
+            finalizarConexion();
+            return id;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar asistencia. Error: "+e.getMessage(), "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+        }
         return id;
     }
     public void editarRegistroAsistencia(Registroasistencias registroasistencias){
@@ -50,7 +56,7 @@ public class ctrlconsultas {
         session.delete(registroasistencias);
         finalizarConexion();
     }
-    public Registroasistencias obtenerRegistroAsistencia(int registroAsistenciaId){
+    public Registroasistencias obtenerRegistroAsistencia(long registroAsistenciaId){
         Registroasistencias registroasistencias=null;
         iniciarConexion();
         registroasistencias = (Registroasistencias) session.get(Registroasistencias.class, registroAsistenciaId);
@@ -98,4 +104,28 @@ public class ctrlconsultas {
         finalizarConexion();
         return estudiantes;
     }
+   public Asignaturas obtenerAsignatura(long asignaturaId){
+        Asignaturas asignatura=null;
+        iniciarConexion();
+        asignatura = (Asignaturas) session.get(Asignaturas.class, asignaturaId);
+        finalizarConexion();
+        return asignatura;
+    }
+   public Estudiantes obtenerEstudianteSegunNombre(String nombre){
+        List<Estudiantes> listaEstudiantes = null;
+        iniciarConexion();
+        String hql = "SELECT est FROM Estudiantes est WHERE est.nombre = '"+nombre+"'";
+        Query query = session.createQuery(hql);
+        listaEstudiantes = query.list();
+        return listaEstudiantes.get(0);
+    }
+   public Asignaturas obtenerAsingaturaSegunNombre(String nombre){
+        List<Asignaturas> listaAsignaturas = null;
+        iniciarConexion();
+        String hql = "SELECT asig FROM Asignaturas asig WHERE asig.nombre = '"+nombre+"'";
+        Query query = session.createQuery(hql);
+        listaAsignaturas = query.list();
+        return listaAsignaturas.get(0);
+    }
+
 }

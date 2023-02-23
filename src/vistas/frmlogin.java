@@ -7,7 +7,7 @@ package vistas;
 
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 
 import utils.TextPrompt;

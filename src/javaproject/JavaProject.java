@@ -8,7 +8,7 @@ import controlador.ctrllogin;
 import controlador.ctrlsystem;
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 public class JavaProject {
 

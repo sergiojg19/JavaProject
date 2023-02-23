@@ -19,7 +19,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 public class ctrlconsultas {
     private Session session;

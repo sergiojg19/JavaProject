@@ -18,7 +18,7 @@ import vistas.frmlogin;
 import utils.Hasher;
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 public class ctrllogin implements ActionListener {
     frmlogin frmlogin = new frmlogin();

@@ -13,7 +13,7 @@ import vistas.frmsystem;
 
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 public class ctrlloading{
     frmloading frmloading = new frmloading();

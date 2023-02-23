@@ -7,7 +7,7 @@ package vistas;
 
 /**
  *
- * @author DETPC
+ * @author Sergio
  */
 public class frmloading extends javax.swing.JFrame {
 

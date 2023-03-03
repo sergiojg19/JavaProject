@@ -71,26 +71,7 @@ public class Hasher {
         return hash.equals(hashedPassword);
     }
 
-    // Following examples can be generated at any Django project:
-    //
-    //  >>> from django.contrib.auth.hashers import make_password
-    //  >>> make_password('mystery', hasher='pbkdf2_sha256')  # salt would be randomly generated
-    //  'pbkdf2_sha256$10000$HqxvKtloKLwx$HdmdWrgv5NEuaM4S6uMvj8/s+5Yj+I/d1ay6zQyHxdg='
-    //  >>> make_password('mystery', salt='mysalt', hasher='pbkdf2_sha256')
-    //  'pbkdf2_sha256$10000$mysalt$KjUU5KrwyUbKTGYkHqBo1IwUbFBzKXrGQgwA1p2AuY0='
-    //
-    //
-    // mystery
-    // pbkdf2_sha256$10000$qx1ec0f4lu4l$3G81rAm/4ng0tCCPTrx2aWohq7ztDBfFYczGNoUtiKQ=
-    //
-    // s3cr3t
-    // pbkdf2_sha256$10000$BjDHOELBk7fR$xkh1Xf6ooTqwkflS3rAiz5Z4qOV1Jd5Lwd8P+xGtW+I=
-    //
-    // puzzle
-    // pbkdf2_sha256$10000$IFYFG7hiiKYP$rf8vHYFD7K4q2N3DQYfgvkiqpFPGCTYn6ZoenLE3jLc=
-    //
-    // riddle
-    // pbkdf2_sha256$10000$A0S5o3pNIEq4$Rk2sxXr8bonIDOGj6SU4H/xpjKHhHAKpFXfmNZ0dnEY=
+
 
     public static void main(String[] args) {
 //        runTests();
